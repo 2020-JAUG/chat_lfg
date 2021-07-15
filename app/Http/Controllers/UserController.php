@@ -13,10 +13,10 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request, User $id)
+    public function all(Request $request, User $id)
     {
 
-        if($id === is_admin) {//AQUI VALIDAMOS QUE SEA ADMIN
+        if($request === is_admin) {//AQUI VALIDAMOS QUE SEA ADMIN
             return User::all();
         } else {
             return response()->json(['error' => 'No acceptable'], status:406);
