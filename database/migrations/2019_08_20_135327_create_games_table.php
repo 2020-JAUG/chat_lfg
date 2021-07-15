@@ -14,7 +14,11 @@ class CreateGamesTable extends Migration
     public function up()
     {
         Schema::create('games', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
+            $table->string('title', 20);
+            $table->string('thumbnail_url', 20)->unique();
+            //PARA SABER QUÉ USUARIO CREO EL JUEGO
+            $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }

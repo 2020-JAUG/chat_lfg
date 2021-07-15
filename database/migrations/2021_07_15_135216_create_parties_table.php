@@ -15,6 +15,10 @@ class CreatePartiesTable extends Migration
     {
         Schema::create('parties', function (Blueprint $table) {
             $table->id();
+            $table->string('name', 20)->unique();
+            $table->foreignId('game_id')->references('id')->on('games')->onDelete('cascade');
+            //PARA SABER QUÉ USUARIO CREO LA PARTY
+            $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }

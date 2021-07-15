@@ -14,6 +14,30 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable, HasApiTokens;
 
+    //UN USER PUEDE TENER MUCHOS POSTS
+    public function posts (){
+        return $this -> hasMany(Post::class);
+    }
+    //UN USER, PUEDE ESTAR EN MUCHAS PARTIES
+    public function membershipe (){
+        return $this -> hasMany(Membershipe::class);
+    }
+
+    //UN USER, PUEDE CREAR EN MUCHAS PARTIES
+    public function user (){
+        return $this -> hasMany(Party::class);
+    }
+
+    //UN USER PUEDE TENER MUCHOS COMENTARIOS
+    public function comment(){
+        return $this -> hasMany(Comment::class);
+    }
+
+    //UN USER PUEDE TENER MUCHOS GAMES
+    public function game(){
+        return $this -> hasMany(Game::class);
+    }
+
     /**
      * The attributes that are mass assignable.
      *
