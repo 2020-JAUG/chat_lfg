@@ -13,9 +13,10 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($request)
+    public function index($id)
     {
-        if($request->isJson()) {//AQUI VALIDAMOS QUE SEA UN ARCHIVO JSON
+
+        if($id === is_admin) {//AQUI VALIDAMOS QUE SEA ADMIN
             return User::all();
         } else {
             return response()->json(['error' => 'No acceptable'], status:406);
