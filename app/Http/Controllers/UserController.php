@@ -13,7 +13,7 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($id)
+    public function index(Request $request, User $id)
     {
 
         if($id === is_admin) {//AQUI VALIDAMOS QUE SEA ADMIN
