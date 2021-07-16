@@ -13,7 +13,7 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function all()
+    public function index()
     {
 
         //GUARDO EL TOKEN DEL USER LOGEADO. MEDIANTE EL AUTH
