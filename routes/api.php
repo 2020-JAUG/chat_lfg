@@ -27,8 +27,11 @@ Route::post('login', [PassportAuthController::class, 'login']);
 
 //AQUI INDICAMOS LAS RUTAS QUE REQUIEREN DE AUTHENTICATE, PARA REALIZAR EL CRUD
 Route::middleware('auth:api')->group(function() {
+
+    //CRUD DEL USER
     Route::resource('users', UserController::class);
     Route::resource('users/all', UserController::class);
+    Route::put('users/edit/{id}', [UserController::class, 'update']);
 
 
     Route::resource('posts', PostController::class);
