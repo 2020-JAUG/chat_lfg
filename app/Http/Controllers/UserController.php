@@ -17,7 +17,7 @@ class UserController extends Controller
     {
 
         //GUARDO EL TOKEN DEL USER LOGEADO. MEDIANTE EL AUTH
-        $user = auth()->user()->get();
+        $user = auth()->user();
         if($user -> is_admin === 1) {//AQUI VALIDAMOS QUE SEA ADMIN
             return User::all();
         } else {
