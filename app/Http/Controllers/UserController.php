@@ -13,11 +13,11 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($id)
     {
 
         //GUARDO EL TOKEN DEL USER LOGEADO. MEDIANTE EL AUTH
-        $user = auth()->user();
+        $user = auth()->user()->find($id);
         if($user -> isEmpty()) {//AQUI VALIDAMOS QUE SEA ADMIN
             return User::all();
         } else {
