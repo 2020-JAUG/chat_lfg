@@ -24,6 +24,8 @@ use App\Http\Controllers\UserController;
 //RUTAS VISIBLES SIN AUTH-PARA LOS NUEVOS REGISTROS
 Route::post('register', [PassportAuthController::class, 'register']);
 Route::post('login', [PassportAuthController::class, 'login']);
+Route::get('logout', [PassportAuthController::class, 'logout']);
+
 
 //AQUI INDICAMOS LAS RUTAS QUE REQUIEREN DE AUTHENTICATE, PARA REALIZAR EL CRUD
 Route::middleware('auth:api')->group(function() {

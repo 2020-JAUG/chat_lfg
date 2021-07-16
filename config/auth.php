@@ -35,6 +35,7 @@ return [
     |
     */
 
+    //ASIGNAMOS EL DRIVER PASSPORT, PARA VALIDAR LAS PETICIONES
     'guards' => [
         'web' => [
             'driver' => 'session',

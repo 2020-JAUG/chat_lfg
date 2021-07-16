@@ -13,7 +13,7 @@ class PassportAuthController extends Controller
 
         $this->validate($request, [
             'name' => 'required|min:4',
-            'email' => 'required|email',
+            'email' => 'required|email|unique:users',
             'password' => 'required|min:8'
         ]);
 
@@ -43,4 +43,13 @@ class PassportAuthController extends Controller
             return response()->json(['error' => 'Unauthorised'], 401);
         }
     }
+
+    public function logout(Request $request)
+        {
+            $request->user()->token()->revoke();
+
+            return response()->json([
+                'message' => 'Successfully logged out'
+            ]);
+        }
 }
