@@ -22,32 +22,8 @@ class GameController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request, Game $game)
+    public function create(Request $request)
     {
-        //AQUI CREAMOS EL JUEGO TIPO JSON
-        if($request->isJson()) {
-
-            $data = $request->json()->all();
-
-            //CONFIRMACIÓN PARA SABER SI EL USUARIO EXISTE
-            $userExists = User::where("id", $data['user_id'])->exists();
-
-            if($userExists === false) {
-                return response()->json(['error' => 'Invalid parameters'], status:406);
-            }
-
-            $datatoBeSaved = [
-                'user_id' => $data['user_id'],
-                'title' => $data['title'],
-                'thumbnail_url' => $data['thumbnail_url'],
-            ];
-            //Aqui ejecutamos la variable datatosaved, para que se guarde el juego
-            $game = Game::create($datatoBeSaved);
-
-            return response()->json($game, status:200);
-        } else {
-            return response()->json(['error' => 'Error not a valid JSON!!!'], status:406,);
-        }
     }
 
     /**
@@ -58,7 +34,29 @@ class GameController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'user_id' => 'required',
+            'title' => 'required',
+            'thumbnail_url' => 'required',
+
+        ]);
+
+        $game = Game::create([
+            'user_id' => $request->user_id,
+            'title' => $request->title,
+            'thumbnail_url' => $request->thumbnail_url,
+        ]);
+
+        if (!$game) {
+            return response() ->json([
+                'success' => false,
+                'data' => 'Game not created'], 400);
+        } else {
+            return response() ->json([
+                'success' => true,
+                'data' => $game,
+            ], 200);
+        }
     }
 
     /**

@@ -43,9 +43,10 @@ Route::middleware('auth:api')->group(function() {
     //CRUD DEL PARTIES
     Route::resource('parties', PartyController::class);
 
-    //CRUD DEL USER
+
+    //CRUD DEL GAME
     Route::resource('games', GameController::class);
-    Route::post('games/create', [GameController::class, 'create']);
+    Route::post('games/edit/{id}', [GameController::class, 'update']);
 });
 
 // Route::middleware('auth:api')->get('/user', function (Request $request) {
