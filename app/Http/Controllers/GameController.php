@@ -67,21 +67,21 @@ class GameController extends Controller
      * @param  \App\Models\Game  $game
      * @return \Illuminate\Http\Response
      */
-    public function show(Game $game)
+    public function show()
     {
         //CONFIRMAMOS LA AUTHENTICATION
-        $game = auth()->user()->games()->find($id);
+        $games = Game::all();
 
-        if(!$game) {
+        if(!$games) {
             return response()->json([
                 'success' => false,
-                'message' => 'Post not found'
+                'message' => 'No games found'
             ], 400);
         }
 
         return response()->json([
             'success' => true,
-            'message' => $game->toArray()
+            'message' => $games->toArray()
         ], 200);
     }
 
