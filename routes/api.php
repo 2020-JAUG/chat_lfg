@@ -24,11 +24,11 @@ use App\Http\Controllers\UserController;
 //RUTAS VISIBLES SIN AUTH-PARA LOS NUEVOS REGISTROS
 Route::post('register', [PassportAuthController::class, 'register']);
 Route::post('login', [PassportAuthController::class, 'login']);
-Route::get('users/all', [UserController::class, 'all']);
 
 //AQUI INDICAMOS LAS RUTAS QUE REQUIEREN DE AUTHENTICATE, PARA REALIZAR EL CRUD
 Route::middleware('auth:api')->group(function() {
     Route::resource('users', UserController::class);
+    Route::resource('users/all', UserController::class);
 
 
     Route::resource('posts', PostController::class);
