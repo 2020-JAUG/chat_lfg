@@ -50,7 +50,7 @@ Route::middleware('auth:api')->group(function() {
     Route::get('games/getGameById', [GameController::class, 'getGameById']);
 
     Route::post('games/title', [GameController::class, 'title']);
-    Route::get('games/all', [GameController::class, 'all']);
+    Route::get('games/all', [GameController::class, 'allGames']);
 });
 
 // Route::middleware('auth:api')->get('/user', function (Request $request) {

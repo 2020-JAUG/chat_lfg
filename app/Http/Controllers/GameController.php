@@ -22,16 +22,20 @@ class GameController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function title($title)
+    public function title(Request $request)
     {
-        $game = Game::where('title', $title)->get();
+        $game = Game::where('title', $request->title)->get();
         if(!$game) {
             return response()->json([
                 'success' => false,
-                'message' => 'Game: .' . $request->title . 'not found'
+                'message' => 'Game not found'
             ], 400);
+        } else {
+            return response()->json([
+                'success' => true,
+                'data' => $game
+            ],200);
         }
-        return response()->json([ 'success' => true,'data' => $game,], 200);
     }
 
 
@@ -103,6 +107,14 @@ class GameController extends Controller
         ], 200);
     }
 
+    public function allGames(Request $request)
+    {
+        if($request->isJson()) {//AQUI VALIDAMOS QUE SEA UN ARCHIVO JSON
+            return Game::all();
+        } else {
+            return response()->json(['error' => 'No acceptable'], status:406);
+        }
+    }
     /**
      * Show the form for editing the specified resource.
      *
