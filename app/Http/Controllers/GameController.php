@@ -101,9 +101,11 @@ class GameController extends Controller
      * @param  \App\Models\Game  $game
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Game $game)
+    public function update(Request $request, Game $game, $id)
     {
-        //
+        $game = User::findOrFail($id);
+        $game->update($request->all());
+        return $game;
     }
 
     /**
@@ -112,8 +114,10 @@ class GameController extends Controller
      * @param  \App\Models\Game  $game
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Game $game)
+    public function destroy($id)
     {
-        //
+        $game = Game::findOrFail($id);
+
+        $game->delete();
     }
 }
