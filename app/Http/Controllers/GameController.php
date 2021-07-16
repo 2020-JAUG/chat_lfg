@@ -24,7 +24,6 @@ class GameController extends Controller
      */
     public function title($title)
     {
-
         $game = Game::where('title', $title)->get();
         if(!$game) {
             return response()->json([
@@ -86,7 +85,7 @@ class GameController extends Controller
      */
 
     //MUESTRA TODOS LOS JUEGOS PASANDO EL ID DEL USER POR PARAMS
-    public function all()
+    public function show()
     {
 
         $games = Game::all();
