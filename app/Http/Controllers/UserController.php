@@ -86,7 +86,7 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        $user = Game::findOrFail($id);
+        $user = User::findOrFail($id);
 
         $user->delete();
     }
