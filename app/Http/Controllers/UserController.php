@@ -72,7 +72,7 @@ class UserController extends Controller
         $user = User::findOrFail($id);
         $user->update($request->all());
         // return $game;
-        return response()->json($game, status:200);
+        return response()->json($user, status:200);
     }
 
     /**
