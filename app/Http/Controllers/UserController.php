@@ -15,7 +15,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = auth()->user()->users;
+        $users = auth()->user()->all();
 
         return response()->json(['success' => true, 'data' => $users], 200);
 
