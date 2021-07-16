@@ -10,7 +10,7 @@ class Post extends Model
     use HasFactory;
 
     //ENCAPSULAMOS LOS ATRIBUTOS
-    protected $fillable = ['title', 'description', 'user_id', 'party_id'];
+    protected $fillable = ['title', 'description'];
 
     //UN POST PERTENECE A UN SOLO USUARIO
     public function user()
@@ -24,8 +24,8 @@ class Post extends Model
     }
 
     //UN POST PUEDE TENER MUCHOS COMENTARIOS
-    public function comment()
-    {
-        return $this->hasMany(Comment::class);
-    }
+    // public function comment()
+    // {
+    //     return $this->hasMany(Comment::class);
+    // }
 }

@@ -15,17 +15,20 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = auth()->user()->all();
+        // $users = auth()->user()->all();
 
-        return response()->json(['success' => true, 'data' => $users], 200);
+        // return response()->json(['success' => true, 'data' => $users], 200);
 
         //GUARDO EL TOKEN DEL USER LOGEADO. MEDIANTE EL AUTH
-        // $user = auth()->user()->find($id);
-        // if($user -> isEmpty()) {//AQUI VALIDAMOS QUE SEA ADMIN
-        //     return User::all();
-        // } else {
-        //     return response()->json(['error' => 'No acceptable'], status:406);
-        // }
+        $user = auth()->user();
+
+        //CON LA FLECHA ACCEDEMOS A LAS PROPIEDADES DE USER
+        if($user -> is_admin === true ) {//AQUI VALIDAMOS QUE SEA ADMIN
+            $users = User::all();
+            return response()->json(['success' => true, 'data' => $users], 200);
+        } else {
+            return response()->json(['error' => 'You do not have access'], status:406);
+        }
     }
 
     /**
@@ -72,6 +75,7 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user, $id)
     {
+        //BUSCAMOS EL ID PASAMOS POR PARÁMETROS PARA LOCALIZARLO Y ACTUALIZAR
         $user = User::findOrFail($id);
         $user->update($request->all());
         return $user;

@@ -38,10 +38,11 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
+
         $this->validate($request, [
             'title' => 'required',
             'description' => 'required',
-            'party_id' => 'require'
+            'party_id' => 'required'
         ]);
 
         $post = new Post();
@@ -59,8 +60,8 @@ class PostController extends Controller
                     'success' => false,
                     'message' => 'Post not added'
                 ], 500);
-    }
 
+    }
     /**
      * Display the specified resource.
      *
@@ -103,7 +104,7 @@ class PostController extends Controller
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Post $post)
+    public function update(Request $request, $id)
     {
         $post = auth()->user()->posts()->find($id);
 
