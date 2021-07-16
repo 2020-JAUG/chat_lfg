@@ -69,7 +69,7 @@ class GameController extends Controller
      */
     public function show()
     {
-        //CONFIRMAMOS LA AUTHENTICATION
+
         $games = Game::all();
 
         if(!$games) {
@@ -81,7 +81,7 @@ class GameController extends Controller
 
         return response()->json([
             'success' => true,
-            'data' => $games->toArray()
+            'data' => $games
         ], 200);
     }
 
