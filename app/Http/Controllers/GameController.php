@@ -69,7 +69,20 @@ class GameController extends Controller
      */
     public function show(Game $game)
     {
-        //
+        //CONFIRMAMOS LA AUTHENTICATION
+        $game = auth()->user()->games()->find($id);
+
+        if(!$game) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Post not found'
+            ], 400);
+        }
+
+        return response()->json([
+            'success' => true,
+            'message' => $game->toArray()
+        ], 200);
     }
 
     /**
