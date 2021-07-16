@@ -81,7 +81,7 @@ class GameController extends Controller
 
         return response()->json([
             'success' => true,
-            'message' => $games->toArray()
+            'data' => $games->toArray()
         ], 200);
     }
 
