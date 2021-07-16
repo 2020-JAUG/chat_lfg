@@ -34,6 +34,7 @@ Route::middleware('auth:api')->group(function() {
     Route::put('users/edit/{id}', [UserController::class, 'update']);
 
 
+    //CRUD DEL POSTS
     Route::resource('posts', PostController::class);
     Route::resource('parties', PartyController::class);
 
