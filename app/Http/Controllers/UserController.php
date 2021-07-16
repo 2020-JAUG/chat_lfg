@@ -71,8 +71,8 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
         $user->update($request->all());
-        // return $game;
-        return response()->json($user, status:200);
+        return $user;
+        // return response()->json($user, status:200);
     }
 
     /**
@@ -83,6 +83,8 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user = Game::findOrFail($id);
+
+        $user->delete();
     }
 }
