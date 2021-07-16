@@ -22,9 +22,19 @@ class GameController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request)
+    public function title($title)
     {
+
+        $game = Game::where('title', $title)->get();
+        if(!$game) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Game: .' . $request->title . 'not found'
+            ], 400);
+        }
+        return response()->json([ 'success' => true,'data' => $game,], 200);
     }
+
 
     /**
      * Store a newly created resource in storage.
@@ -59,13 +69,24 @@ class GameController extends Controller
         }
     }
 
+    public function getGameById(Request $request, $id)
+    {
+        $game = Game::where('id', $id)->get();
+        return response() ->json([
+            'success' => true,
+            'data' => $game,
+        ], 200);
+    }
+
     /**
      * Display the specified resource.
      *
      * @param  \App\Models\Game  $game
      * @return \Illuminate\Http\Response
      */
-    public function show()
+
+    //MUESTRA TODOS LOS JUEGOS PASANDO EL ID DEL USER POR PARAMS
+    public function all()
     {
 
         $games = Game::all();
@@ -101,6 +122,8 @@ class GameController extends Controller
      * @param  \App\Models\Game  $game
      * @return \Illuminate\Http\Response
      */
+
+     //RUTA PARA ACTUALIZAR LOS DATOS DEL JUEGO. NOMBRE Y IMAGE_URL
     public function update(Request $request, Game $game, $id)
     {
         $game = Game::findOrFail($id);
