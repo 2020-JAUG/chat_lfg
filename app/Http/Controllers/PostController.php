@@ -137,7 +137,7 @@ class PostController extends Controller
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Post $post, $id)
+    public function destroy($id)
     {
         $post = auth()->user()->posts()->find($id);
 
