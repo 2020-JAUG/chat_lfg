@@ -13,16 +13,19 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($id)
+    public function index()
     {
+        $users = auth()->user()->users;
+
+        return response()->json(['success' => true, 'data' => $users], 200);
 
         //GUARDO EL TOKEN DEL USER LOGEADO. MEDIANTE EL AUTH
-        $user = auth()->user()->find($id);
-        if($user -> isEmpty()) {//AQUI VALIDAMOS QUE SEA ADMIN
-            return User::all();
-        } else {
-            return response()->json(['error' => 'No acceptable'], status:406);
-        }
+        // $user = auth()->user()->find($id);
+        // if($user -> isEmpty()) {//AQUI VALIDAMOS QUE SEA ADMIN
+        //     return User::all();
+        // } else {
+        //     return response()->json(['error' => 'No acceptable'], status:406);
+        // }
     }
 
     /**
