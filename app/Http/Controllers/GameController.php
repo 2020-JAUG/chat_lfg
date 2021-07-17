@@ -22,10 +22,11 @@ class GameController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    //FUNCION PARA VER LOS JUEGOS POR TITLE
     public function title(Request $request)
     {
         $game = Game::where('title', $request->title)->get();
-        if(!$game) {
+        if (!$game != $request) {
             return response()->json([
                 'success' => false,
                 'message' => 'Game not found'
@@ -34,7 +35,7 @@ class GameController extends Controller
             return response()->json([
                 'success' => true,
                 'data' => $game
-            ],200);
+            ], 200);
         }
     }
 
@@ -61,11 +62,12 @@ class GameController extends Controller
         ]);
 
         if (!$game) {
-            return response() ->json([
+            return response()->json([
                 'success' => false,
-                'data' => 'Game not created'], 400);
+                'data' => 'Game not created'
+            ], 400);
         } else {
-            return response() ->json([
+            return response()->json([
                 'success' => true,
                 'data' => $game,
             ], 200);
@@ -75,7 +77,7 @@ class GameController extends Controller
     public function getGameById(Request $request, $id)
     {
         $game = Game::where('id', $id)->get();
-        return response() ->json([
+        return response()->json([
             'success' => true,
             'data' => $game,
         ], 200);
@@ -94,7 +96,7 @@ class GameController extends Controller
 
         $games = Game::all();
 
-        if(!$games) {
+        if (!$games) {
             return response()->json([
                 'success' => false,
                 'message' => 'No games found'
@@ -109,10 +111,10 @@ class GameController extends Controller
 
     public function allGames(Request $request)
     {
-        if($request->isJson()) {//AQUI VALIDAMOS QUE SEA UN ARCHIVO JSON
+        if ($request->isJson()) { //AQUI VALIDAMOS QUE SEA UN ARCHIVO JSON
             return Game::all();
         } else {
-            return response()->json(['error' => 'No acceptable'], status:406);
+            return response()->json(['error' => 'No acceptable'], status: 406);
         }
     }
     /**
@@ -134,7 +136,7 @@ class GameController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-     //RUTA PARA ACTUALIZAR LOS DATOS DEL JUEGO. NOMBRE Y IMAGE_URL
+    //RUTA PARA ACTUALIZAR LOS DATOS DEL JUEGO. NOMBRE Y IMAGE_URL
     public function update(Request $request, Game $game, $id)
     {
         $game = Game::findOrFail($id);
