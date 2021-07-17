@@ -13,21 +13,19 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($id)
+    public function index()
     {
 
         //GUARDO EL TOKEN DEL USER LOGEADO. MEDIANTE EL AUTH
-        $user = auth()->user()->find($id);
+        $user = auth()->user();
+        $users = User::all();
 
         //CON LA FLECHA ACCEDEMOS A LAS PROPIEDADES DE USER
-        if(!$user) {
-            return response()->json(['success' => true, 'data' => $user], 200);
-        } else {
-            return response()->json([
-                'success' =>  false,
-                'message' => 'User not found',
-            ], 400);
+        //CON LA FLECHA ACCEDEMOS A LAS PROPIEDADES DE USER
+        if($user -> is_admin === true ) {//AQUI VALIDAMOS QUE SEA ADMIN
+            return response()->json(['success' => true, 'data' => $users], 200);
         }
+        return response()->json(['error' => 'You do not have access'], status:406);
     }
 
     /**
@@ -47,22 +45,21 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show()
+    public function show($id)
     {
         //CONFIRMAMOS LA AUTHENTICATION
-        $user = auth()->user();
-        $users = User::all();
+        $user = auth()->user()->find($id);
 
-        if( $user-> id === 5) {//AQUI VALIDAMOS QUE SEA ADMIN
+        if( $user-> id === $id) {//AQUI VALIDAMOS QUE SEA ADMIN
             return response()->json([
                 'success' => false,
-                'message' => 'You do not have access'
+                'message' => 'User not found'
             ], 400);
         }
 
         return response()->json([
             'success' => true,
-            'message' => $users->toArray()
+            'message' => $user->toArray()
         ], 200);
     }
 
