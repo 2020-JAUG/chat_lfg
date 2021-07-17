@@ -53,7 +53,7 @@ class UserController extends Controller
         //CONFIRMAMOS LA AUTHENTICATION
         $user = auth()->user()->find($id);
 
-        if(!$user && $id === $id) {
+        if( $user-> id === $id) {
             return response()->json([
                 'success' => false,
                 'message' => 'User not found'
