@@ -26,7 +26,7 @@ class GameController extends Controller
     public function title(Request $request)
     {
         $game = Game::where('title', $request->title)->get();
-        if (!$game != $request) {
+        if (!$game) {
             return response()->json([
                 'success' => false,
                 'message' => 'Game not found'
