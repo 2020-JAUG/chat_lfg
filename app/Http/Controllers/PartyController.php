@@ -40,27 +40,31 @@ class PartyController extends Controller
      */
     public function store(Request $request)
     {
+
         $this->validate($request, [
-            'name' => 'required',
-            'game_id' => 'required',
+            'title',
+            'game_id'
+        ]);
+
+        $party = Party::create([
+            'title' => $request->title,
+            'game_id' => $request->game_id,
             'user_id' => auth()->user()->id
         ]);
 
-        $party = new Party();
-        $party->name = $request->name;
-        $party->game_id = $request->game_id;
-        $party->user_id = $request->user_id;
-
-        if(auth()->user()->posts()->save($party))
+        if ($party){
             return response()->json([
                 'success' => true,
-                'data' => $party->toArray()
+                'data' => $party
             ], 200);
-            else
-                return response()->json([
-                    'success' => false,
-                    'message' => 'Party not create'
-                ], 500);
+
+        }else{
+            return response()->json([
+                'success' => false,
+                'message' => 'Party not create'
+            ], 500);
+        }
+
     }
 
     /**
