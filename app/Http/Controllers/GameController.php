@@ -152,8 +152,23 @@ class GameController extends Controller
      */
     public function destroy($id)
     {
-        $game = Game::findOrFail($id);
+        $user = auth()->user();
 
-        $game->delete();
+        $game = Party::findOrFail($id);
+
+        if($user->id == $game->user_id) {//CONFIRMAMOS QUE SEA EL CREADOR DE JUEGO
+
+            if($game->delete()) {
+                return response()->json([
+                    'succes' => true,
+                    'message' => 'The game ' . $game->title . ' has been delete'
+                ]);
+            }
+        } else{
+            return response() ->json([
+                'success' => false,
+                'message' => 'You are not the creator of this game'
+            ], 400);
+        }
     }
 }

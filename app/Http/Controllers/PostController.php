@@ -70,7 +70,7 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        //CONFIRMAMOS LA AUTHENTICATION
+        //CONFIRMAMOS LA AUTHENTICATION. PARA MOSTRAR LOS POSTS DEL USER LOGEADO
         $post = auth()->user()->posts()->find($id);
 
         if(!$post) {

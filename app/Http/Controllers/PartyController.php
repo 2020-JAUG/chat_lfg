@@ -118,7 +118,7 @@ class PartyController extends Controller
 
         $party = Party::findOrFail($id);
 
-        if($user->id == $party->user_id) {
+        if($user->id == $party->user_id) {//CONFIRMAMOS QUE SEA EL CREADOR DE LA PARTY
 
             if($party->delete()) {
                 return response()->json([
