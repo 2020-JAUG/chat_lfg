@@ -42,8 +42,8 @@ class PartyController extends Controller
     {
 
         $this->validate($request, [
-            'name',
-            'game_id'
+            'name' => 'required',
+            'game_id' => 'required'
         ]);
 
         $party = Party::create([
