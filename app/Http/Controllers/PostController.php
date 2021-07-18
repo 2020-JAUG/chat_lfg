@@ -51,7 +51,7 @@ class PostController extends Controller
         //PARA COMPROBAR QUE ESTE EN LA PARTY
         $verify = Membership::where('party_id', '=', $request->party_id)->where('user_id', '=', $user->id)->get();
 
-        if($verify->isEmpty()) {
+        if ($verify->isEmpty()) {
 
             return response()->json([
                 'success' => false,
@@ -59,11 +59,11 @@ class PostController extends Controller
             ], 500);
         } else {
 
-            $message = Post::create ([
-                'description' => $request -> description,
-                'title' => $request -> title,
+            $message = Post::create([
+                'description' => $request->description,
+                'title' => $request->title,
                 'user_id' => $user->id,
-                'party_id' => $request -> party_id,
+                'party_id' => $request->party_id,
             ]);
 
             return response()->json([
@@ -83,7 +83,7 @@ class PostController extends Controller
         //CONFIRMAMOS LA AUTHENTICATION. PARA MOSTRAR LOS POSTS DEL USER LOGEADO. Y LISTAMOS SUS POSTS
         $post = auth()->user()->posts()->find($id);
 
-        if(!$post) {
+        if (!$post) {
             return response()->json([
                 'success' => false,
                 'message' => 'Post not found'
@@ -103,27 +103,27 @@ class PostController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-     public function postOnParties(Request $request)
-     {
+    public function postOnParties(Request $request)
+    {
         $post = Post::where('party_id', $request->party_id)->get();
 
         $this->validate($request, [
             'party_id' => 'required',
         ]);
 
-     if( $post->isEmpty() ) {
+        if ($post->isEmpty()) {
 
-        return response()->json([
-            'success' => false,
-            'message' => 'You are not at this party'
-        ], 500);
-     } else {
+            return response()->json([
+                'success' => false,
+                'message' => 'You are not at this party'
+            ], 500);
+        } else {
 
-        return response()->json([
-            'success' => true,
-            'data' => $post,
-        ], 200);
-     }
+            return response()->json([
+                'success' => true,
+                'data' => $post,
+            ], 200);
+        }
     }
     public function edit(Post $post)
     {
@@ -142,7 +142,7 @@ class PostController extends Controller
         $post = auth()->user()->posts()->find($id);
         $user = auth()->user();
 
-        if ( !$user->id == $post->user_id) {
+        if (!$user->id == $post->user_id) {
             return response()->json([
                 'success' => false,
                 'message' => 'You are not the creator of this post'
@@ -157,7 +157,7 @@ class PostController extends Controller
 
             return response()->json([
                 'success' => true,
-                'message' => 'Message with title' . $post->title . 'has been update'
+                'message' => 'Message with title ' . $post->title . 'has been update'
             ], 200);
         } else {
 
@@ -180,20 +180,20 @@ class PostController extends Controller
 
         $post = Post::findOrFail($id);
 
-        if(!$post){
-            return response() ->json([
+        if (!$post) {
+            return response()->json([
                 'success' => false,
                 'message' => 'Post not found',
             ], 400);
         }
 
-            //AQUI EJECUTAMOS LA ACCIÓN
-            if($post -> delete()){
-                return response() ->json([
-                    'success' => true,
-                ], 200);
-            } else {
-            return response() ->json([
+        //AQUI EJECUTAMOS LA ACCIÓN
+        if ($post->delete()) {
+            return response()->json([
+                'success' => true,
+            ], 200);
+        } else {
+            return response()->json([
                 'success' => false,
                 'message' => 'You are not the creator of this post',
             ], 500);
