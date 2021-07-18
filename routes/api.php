@@ -9,6 +9,7 @@ use App\Http\Controllers\GameController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\PartyController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\MembershipController;
 
 /*
 |--------------------------------------------------------------------------
@@ -47,14 +48,11 @@ Route::middleware('auth:api')->group(function () {
 
     //CRUD DEL GAME
     Route::resource('games', GameController::class);
-
     Route::put('games/edit/{id}', [GameController::class, 'update']);
     Route::get('games/getGameById{id}', [GameController::class, 'getGameById']);
-
     Route::post('games/title', [GameController::class, 'title']);
     Route::get('games/all', [GameController::class, 'allGames']);
-});
 
-// Route::middleware('auth:api')->get('/user', function (Request $request) {
-//     return $request->user();
-// });
+    //Membership path
+    Route::resource('membership', MembershipController::class);
+});
