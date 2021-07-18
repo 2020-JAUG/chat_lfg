@@ -60,7 +60,8 @@ class PostController extends Controller
         } else {
 
             $message = Post::create ([
-                'text' => $request -> text,
+                'description' => $request -> description,
+                'title' => $request -> title,
                 'user_id' => $user->id,
                 'party_id' => $request -> party_id,
             ]);
