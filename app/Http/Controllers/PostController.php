@@ -121,7 +121,8 @@ class PostController extends Controller
         ]);
         if ($updated)
             return response()->json([
-                'success' => true
+                'success' => true,
+                'message' => 'Message update'
             ], 200);
         else
             return response()->json([

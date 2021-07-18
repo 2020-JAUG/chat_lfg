@@ -14,7 +14,15 @@ class MembershipController extends Controller
      */
     public function index()
     {
-        //
+        //GUARDO EL TOKEN DEL USER LOGEADO. MEDIANTE EL AUTH
+        $user = auth()->user();
+        $Membership = Membership::all();
+
+        //CON LA FLECHA ACCEDEMOS A LAS PROPIEDADES DE USER
+        if($user -> is_admin == true ) {//AQUI VALIDAMOS QUE SEA ADMIN
+            return response()->json(['success' => true, 'data' => $Membership], 200);
+        }
+        return response()->json(['error' => 'You do not have access'], status:406);
     }
 
     /**
