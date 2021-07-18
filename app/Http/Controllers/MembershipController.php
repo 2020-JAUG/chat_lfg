@@ -54,7 +54,7 @@ class MembershipController extends Controller
             'party_id' => $request->party_id,
         ]);
 
-        $membership = Membership::where('user_id', $request->user_id)->get();
+        $membership = Membership::where('party_id', '=', $request->party_id)->where('user_id', '=', $user->id)->get();
 
 
         if ($membership) {
