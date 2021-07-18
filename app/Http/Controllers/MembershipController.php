@@ -132,7 +132,7 @@ class MembershipController extends Controller
         }else {
             try{
                 $data = Membership::selectRaw('id')
-                ->where('party_id', '=', $party_id)->delete()
+                ->where('party_id', '=', $party_id)
                 ->where('user_id', '=', $user->id)->delete();
 
                 return response()->json([
