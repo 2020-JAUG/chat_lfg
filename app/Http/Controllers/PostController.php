@@ -54,7 +54,7 @@ class PostController extends Controller
         $post->description = $request->description;
         $post->party_id = $request->party_id;
 
-        if($verify->isEmty())
+        if(!$verify->isEmty())
             return response()->json([
                 'success' => true,
                 'data' => $post->toArray()
