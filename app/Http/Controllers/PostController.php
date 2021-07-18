@@ -142,10 +142,10 @@ class PostController extends Controller
         $post = auth()->user()->posts()->find($id);
         $user = auth()->user();
 
-        if ( $post->user_id != $user->user_id) {
+        if ( $post->user_id != $user->id) {
             return response()->json([
                 'success' => false,
-                'message' => 'You are not the creator of this post' . $user->id .' ' . $post->user_id
+                'message' => 'You are not the creator of this post'
             ], 400);
         }
 
