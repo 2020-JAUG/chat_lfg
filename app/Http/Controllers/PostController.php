@@ -42,29 +42,39 @@ class PostController extends Controller
 
         $user = auth()->user();
 
-        $verify = Membership::where('party_id', '=', $request->party_id)->where('user_id', '=', $user->id)->get();
-
         $this->validate($request, [
             'title' => 'required',
             'description' => 'required',
             'party_id' => 'required'
         ]);
 
-        $post = new Post();
-        $post->title = $request->title;
-        $post->description = $request->description;
-        $post->party_id = $request->party_id;
+        //PARA COMPROBAR QUE ESTE EN LA PARTY
+        $verify = Membership::where('party_id', '=', $request->party_id)->where('user_id', '=', $user->id)->get();
 
-        if(!$verify->isEmty())
+        if($verify->isEmty()) {
+
+            return response()->json([
+                'success' => false,
+                'message' => 'You are not at this party'
+            ], 500);
+        } else {
+
+            $message = Post::create ([
+                'text' => $request -> text,
+                'user_id' => $user->id,
+                'party_id' => $request -> party_id,
+            ]);
+
             return response()->json([
                 'success' => true,
-                'data' => $post->toArray()
+                'data' => $message->toArray()
             ]);
-            else
-                return response()->json([
-                    'success' => false,
-                    'message' => 'You are not at this party'
-                ], 500);
+        }
+
+                // $post = new Post();
+                // $post->title = $request->title;
+                // $post->description = $request->description;
+                // $post->party_id = $request->party_id;
 
     }
     /**
