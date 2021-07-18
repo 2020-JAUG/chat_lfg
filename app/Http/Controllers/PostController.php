@@ -97,13 +97,11 @@ class PostController extends Controller
      {
         $post = Post::all()->where('party_id', $party_id);
 
-        $user = auth()->user();
-
         $this->validate($request, [
             'party_id' => 'required',
         ]);
 
-     if($user->id == $post->user_id) {//CONFIRMAMOS QUE SEA EL CREADOR DEL POST
+     if($post == '' ) {
 
         return response()->json([
             'success' => true,
