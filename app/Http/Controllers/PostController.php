@@ -93,7 +93,7 @@ class PostController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-     public function postOnParties()
+     public function postOnParties($party_id)
      {
         $post = Post::all()->where('party_id', $party_id);
 
