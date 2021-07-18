@@ -114,8 +114,23 @@ class PartyController extends Controller
      */
     public function destroy($id)
     {
-        $party = Paty::findOrFail($id);
+        $user = auth()->user();
 
-        $party->delete();
+        $party = Party::findOrFail($id);
+
+        if($user->id == $party->user_id) {
+
+            if($party->delete()) {
+                return response()->json([
+                    'succes' => true,
+                    'message' => 'The party ' . $party->name . ' has been delete'
+                ]);
+            }
+        } else{
+            return response() ->json([
+                'success' => false,
+                'message' => 'You are not the creator of this party'
+            ], 400);
+        }
     }
 }
