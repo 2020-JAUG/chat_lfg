@@ -140,6 +140,8 @@ class PostController extends Controller
     {
         $post = auth()->user()->posts()->find($id);
 
+        $post = Post::findOrFail($id);
+
         if(!$post){
             return response() ->json([
                 'success' => false,
