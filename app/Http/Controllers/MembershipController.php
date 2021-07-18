@@ -54,7 +54,7 @@ class MembershipController extends Controller
             'party_id' => $request->party_id,
         ]);
 
-        if ($membership == Membership->user_id) {
+        if (!$membership || Membership->user_id) {
 
             return response()->json([
                 'success' => false,
