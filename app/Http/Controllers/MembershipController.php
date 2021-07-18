@@ -54,7 +54,10 @@ class MembershipController extends Controller
             'party_id' => $request->party_id,
         ]);
 
-        if (!$membership || Membership->user_id) {
+        $membership = Membership::where('user_id', $request->user_id)->get();
+
+
+        if ($membership) {
 
             return response()->json([
                 'success' => false,
