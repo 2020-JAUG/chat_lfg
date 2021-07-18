@@ -32,7 +32,7 @@ Route::middleware('auth:api')->group(function () {
 
     //CRUD DEL USER
     Route::resource('users', UserController::class);
-    Route::get('users/all', [UserController::class, 'all']);
+    Route::post('users/all', [UserController::class, 'all']);
     Route::put('users/edit/{id}', [UserController::class, 'update']);
 
 
