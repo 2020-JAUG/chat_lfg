@@ -18,8 +18,7 @@ class MembershipController extends Controller
         $user = auth()->user();
         $Membership = Membership::all();
 
-        //CON LA FLECHA ACCEDEMOS A LAS PROPIEDADES DE USER
-        if($user -> is_admin == true ) {//AQUI VALIDAMOS QUE SEA ADMIN
+        if($user ) {
             return response()->json(['success' => true, 'data' => $Membership], 200);
         }
         return response()->json(['error' => 'You do not have access'], status:406);
@@ -118,8 +117,35 @@ class MembershipController extends Controller
      * @param  \App\Models\Membership  $membership
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Membership $membership)
+    public function destroy( $party_id)
     {
-        //
+        $user = auth()->user();
+
+        $resultado = Membership::where('party_id', '=', $party_id)->where('user_id', '=', $user->id)->get();
+
+        if($resultado->isEmpty()){
+
+            return response()->json([
+                'success' => false,
+                'message' => "You are not at this party"
+            ], 400);
+        }else {
+            try{
+                $resultado = Membership::selectRaw('id')
+                ->where('party_id', '=', $party_id)
+                ->where('user_id', '=', $user->id)->delete();
+
+                return response()->json([
+                    'success' => true,
+                    'messate' => "You left the party"
+                ], 200);
+
+            }catch(QueryException $err){
+                return response()->json([
+                    'success' => false,
+                    'data' => $err
+                ], 400);
+            }
+        }
     }
 }
