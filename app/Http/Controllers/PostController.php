@@ -121,9 +121,8 @@ class PostController extends Controller
         ]);
         if ($updated)
             return response()->json([
-                'success' => true,
-                'message' => $update->toArray()
-            ]);
+                'success' => true
+            ], 200);
         else
             return response()->json([
                 'success' => false,
