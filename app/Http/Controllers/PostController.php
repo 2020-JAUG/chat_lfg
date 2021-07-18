@@ -142,7 +142,7 @@ class PostController extends Controller
         $post = auth()->user()->posts()->find($id);
         $user = auth()->user();
 
-        if (!$user->id == $post->user_id) {
+        if ( $post->user_id) {
             return response()->json([
                 'success' => false,
                 'message' => 'You are not the creator of this post'
@@ -157,7 +157,7 @@ class PostController extends Controller
 
             return response()->json([
                 'success' => true,
-                'message' => 'Message with title ' . $post->title . 'has been update'
+                'message' => 'Message with title ' . $post->title . ' has been update'
             ], 200);
         } else {
 
