@@ -117,35 +117,32 @@ class MembershipController extends Controller
      * @param  \App\Models\Membership  $membership
      * @return \Illuminate\Http\Response
      */
-    public function destroy( $party_id)
+    public function destroy(Request $request)
     {
         $user = auth()->user();
 
-        $data = Membership::where('party_id', '=', $party_id)->where('user_id', '=', $user->id)->get();
+        if ($user->id==$request->user_id) {
 
-        if($data->isEmpty()){
+            $data = Subscription::where('id', '=', $request->sub_id)->delete();
 
+            if ($data) {
+
+                return response()->json([
+                    'success' => true,
+                    'data' => $data,
+                    'message' => 'You left the party'
+                ], 200);
+            } else {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Party not found'
+                ], 500);
+            }
+        } else {
             return response()->json([
                 'success' => false,
                 'message' => "You are not at this party"
             ], 400);
-        }else {
-            try{
-                $data = Membership::selectRaw('id')
-                ->where('party_id', '=', $party_id)
-                ->where('user_id', '=', $user->id)->delete();
-
-                return response()->json([
-                    'success' => true,
-                    'messate' => "You left the party"
-                ], 200);
-
-            }catch(QueryException $err){
-                return response()->json([
-                    'success' => false,
-                    'data' => $err
-                ], 400);
-            }
         }
     }
 }
