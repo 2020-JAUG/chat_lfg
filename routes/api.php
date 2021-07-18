@@ -42,6 +42,7 @@ Route::middleware('auth:api')->group(function () {
 
     //CRUD DEL PARTIES
     Route::resource('parties', PartyController::class);
+    Route::put('parties/edit/{id}', [PartyController::class, 'update']);
 
 
     //CRUD DEL GAME
