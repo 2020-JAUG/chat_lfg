@@ -9,7 +9,7 @@ class Party extends Model
 {
     use HasFactory;
 
-    //ENCAPSULAMOS LOS ATRIBUTOS
+    //ENCAPSULAMOS LOS ATRIBUTOS. QUE SON LOS QUE RECIBE POSTMAN
     protected $fillable = ['name', 'user_id', 'game_id'];
 
     //UNA PARTY PUEDE TENER MUCHOS POSTS

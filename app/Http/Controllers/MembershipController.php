@@ -24,7 +24,7 @@ class MembershipController extends Controller
      */
     public function create()
     {
-        //
+        //eviar dos datos userID y partyId
     }
 
     /**

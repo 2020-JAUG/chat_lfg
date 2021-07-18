@@ -136,7 +136,7 @@ class GameController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    //RUTA PARA ACTUALIZAR LOS DATOS DEL JUEGO. NOMBRE Y IMAGE_URL
+    //RUTA PARA ACTUALIZAR LOS DATOS DEL JUEGO. NOMBRE Y IMAGE_URL.
     public function update(Request $request, Game $game, $id)
     {
         $game = Game::findOrFail($id);

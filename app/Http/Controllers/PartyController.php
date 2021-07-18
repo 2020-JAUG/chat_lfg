@@ -96,9 +96,14 @@ class PartyController extends Controller
      * @param  \App\Models\Party  $party
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Party $party)
+
+    //DATOS PARA ACTUALIZAR: NOMBRE DE LA PARTY. EL ID DE LA PARTY SE PASA POR PARAMS
+    public function update(Request $request, Party $id)
+
     {
-        //
+        $party = Party::findOrFail($id);
+        $party->update($request->all());
+        return $party->toArray();
     }
 
     /**
@@ -107,8 +112,10 @@ class PartyController extends Controller
      * @param  \App\Models\Party  $party
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Party $party)
+    public function destroy($id)
     {
-        //
+        $party = Paty::findOrFail($id);
+
+        $party->delete();
     }
 }
