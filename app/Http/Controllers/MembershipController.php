@@ -55,7 +55,7 @@ class MembershipController extends Controller
         if($membership -> isEmpty()) {
 
             $party = Membership::create([
-                'user_id' => $request->user_id,
+                'user_id' => $user_id,
                 'party_id' => $request->party_id,
             ]);
 
@@ -63,7 +63,7 @@ class MembershipController extends Controller
 
                 return response()->json([
                     'success' => true,
-                    'data' => $membership,
+                    'data' => $party,
                 ], 200);
             } else {
 
