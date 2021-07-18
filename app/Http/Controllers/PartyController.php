@@ -14,7 +14,12 @@ class PartyController extends Controller
      */
     public function index()
     {
-        //
+        $parties = Party::all();
+
+        return response()->json([
+            'success' => true,
+            'data' => $parties
+        ], 200);
     }
 
     /**
@@ -35,7 +40,27 @@ class PartyController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required',
+            'game_id' => 'required',
+            'user_id' => auth()->user()->id
+        ]);
+
+        $party = new Party();
+        $party->name = $request->name;
+        $party->game_id = $request->game_id;
+        $party->user_id = $request->user_id;
+
+        if(auth()->user()->posts()->save($party))
+            return response()->json([
+                'success' => true,
+                'data' => $party->toArray()
+            ], 200);
+            else
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Party not create'
+                ], 500);
     }
 
     /**
