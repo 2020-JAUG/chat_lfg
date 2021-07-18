@@ -148,15 +148,13 @@ class PostController extends Controller
                 'message' => 'Post not found',
             ], 400);
         }
-        if($user->id == $post->user_id) {//CONFIRMAMOS QUE SEA EL CREADOR DEL POST
 
             //AQUI EJECUTAMOS LA ACCIÓN
             if($post -> delete()){
                 return response() ->json([
                     'success' => true,
                 ], 200);
-            }
-        } else {
+            } else {
             return response() ->json([
                 'success' => false,
                 'message' => 'You are not the creator of this post',
