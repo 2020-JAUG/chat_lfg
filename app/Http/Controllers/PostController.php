@@ -101,7 +101,7 @@ class PostController extends Controller
             'party_id' => 'required',
         ]);
 
-     if($post == '' ) {
+     if( $post->isEmpty() ) {
 
         return response()->json([
             'success' => false,
