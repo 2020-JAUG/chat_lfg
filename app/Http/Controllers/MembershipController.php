@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Membership;
 use Illuminate\Http\Request;
 
+use function PHPUnit\Framework\isEmpty;
+
 class MembershipController extends Controller
 {
     /**
@@ -43,35 +45,33 @@ class MembershipController extends Controller
 
      public function entryPArty(Request $request)
      {
+
         $user = auth()->user();
 
         $this->validate($request, [
-             'user_id' => 'required',
-             'party_id' => 'required',
+            'user_id' => 'required',
+            'party_id' => 'required',
         ]);
 
         $membership = Membership::where('party_id', '=', $request->party_id)->where('user_id', '=', $user->id)->get();
 
-        if($membership -> isEmpty()) {
+        $membership = Membership::create([
+            'user_id' => $request->user_id,
+            'party_id' => $request->party_id,
+        ]);
 
-            $party = Membership::create([
-                'user_id' => $user_id,
-                'party_id' => $request->party_id,
-            ]);
+        if ($membership != isEmpty()) {
 
-            if ($party) {//AQUI CREAMOS LA PARTY DESPUES DE COMPROBAR SI EXISTE O NO
+            return response()->json([
+                'success' => false,
+                'data' => 'you are already at this party :)'
+            ], 400);
+        } else {
 
-                return response()->json([
-                    'success' => true,
-                    'data' => $party,
-                ], 200);
-            } else {
-
-                return response()->json([
-                    'success' => false,
-                    'data' => 'you are already at this party :)'
-                ], 400);
-            }
+            return response()->json([
+                'success' => true,
+                'data' => $membership,
+            ], 200);
         }
      }
     public function store(Request $request)
