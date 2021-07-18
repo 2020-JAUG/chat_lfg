@@ -154,7 +154,7 @@ class GameController extends Controller
     {
         $user = auth()->user();
 
-        $game = Party::findOrFail($id);
+        $game = Game::findOrFail($id);
 
         if($user->id == $game->user_id) {//CONFIRMAMOS QUE SEA EL CREADOR DE JUEGO
 
