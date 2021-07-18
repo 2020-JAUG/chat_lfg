@@ -139,13 +139,9 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $post = auth()->user()->posts()->find($id);
+        $post = Post::all()->find($id);
         $user = auth()->user();
 
-        return response()->json([
-            'success' => false,
-            'message' => $post
-        ], 400);
         if ( $post->user_id != $user->id) {
             return response()->json([
                 'success' => false,
