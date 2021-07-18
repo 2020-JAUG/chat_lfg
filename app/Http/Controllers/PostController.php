@@ -93,9 +93,9 @@ class PostController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-     public function postOnParties(Request $request, Post $party_id)
+     public function postOnParties(Request $request)
      {
-        $post = Post::all()->where('party_id', $party_id);
+        $post = Post::where('party_id', $request->party_id)->get();
 
         $this->validate($request, [
             'party_id' => 'required',
