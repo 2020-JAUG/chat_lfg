@@ -123,7 +123,7 @@ class MembershipController extends Controller
 
         if ($user->id==$request->user_id) {
 
-            $data = Subscription::where('id', '=', $request->sub_id)->delete();
+            $data = Subscription::where('id', '=', $request->party_id)->delete();
 
             if ($data) {
 
