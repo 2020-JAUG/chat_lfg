@@ -11,7 +11,7 @@ class Membership extends Model
     use HasFactory;
 
     //ENCAPSULAMOS LOS ATRIBUTOS
-    protected $fillable = [ 'party_id'];
+    protected $fillable = ['user_id', 'party_id'];
 
     //LA TABLA PARTY_USER, PERTENECE A UN USER
     public function user()

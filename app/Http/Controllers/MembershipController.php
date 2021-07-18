@@ -45,12 +45,12 @@ class MembershipController extends Controller
      public function entryPArty(Request $request)
      {
         $this->validate($request, [
-            // 'user_id' => 'required',
+            'user_id' => 'required',
             'party_id' => 'required',
         ]);
 
         $membership = Membership::create([
-            // 'user_id' => $request->user_id,
+            'user_id' => $request->user_id,
             'party_id' => $request->party_id,
         ]);
 
