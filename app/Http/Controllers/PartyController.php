@@ -98,7 +98,7 @@ class PartyController extends Controller
      */
 
     //DATOS PARA ACTUALIZAR: NOMBRE DE LA PARTY. EL ID DE LA PARTY SE PASA POR PARAMS
-    public function update(Request $request, Party $id)
+    public function update(Request $request, Party $party, $id)
 
     {
         $party = Party::findOrFail($id);
