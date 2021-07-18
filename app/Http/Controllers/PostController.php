@@ -142,6 +142,10 @@ class PostController extends Controller
         $post = auth()->user()->posts()->find($id);
         $user = auth()->user();
 
+        return response()->json([
+            'success' => false,
+            'message' => $post
+        ], 400);
         if ( $post->user_id != $user->id) {
             return response()->json([
                 'success' => false,
