@@ -104,15 +104,15 @@ class PostController extends Controller
      if($post == '' ) {
 
         return response()->json([
-            'success' => true,
-            'data' => $post,
-        ], 200);
-
-     } else {
-        return response()->json([
             'success' => false,
             'message' => 'You are not at this party'
         ], 500);
+     } else {
+
+        return response()->json([
+            'success' => true,
+            'data' => $post,
+        ], 200);
      }
     }
     public function edit(Post $post)
