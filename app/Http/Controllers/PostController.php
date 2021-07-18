@@ -142,7 +142,7 @@ class PostController extends Controller
         $post = auth()->user()->posts()->find($id);
         $user = auth()->user();
 
-        if ( !$user->id == $post->user_id) {
+        if ( !$user->id || $user->id == $post->user_id) {
             return response()->json([
                 'success' => false,
                 'message' => 'You are not the creator of this post'
@@ -153,16 +153,19 @@ class PostController extends Controller
             'title' => $request->input('title'),
             'description' => $request->input('description')
         ]);
-        if ($updated)
+        if ($updated) {
+
             return response()->json([
                 'success' => true,
-                'message' => 'Message update'
+                'message' => 'Message with title' . $post->title . 'has been update'
             ], 200);
-        else
+        } else {
+
             return response()->json([
                 'success' => false,
                 'message' => 'Post can not be updated'
             ], 500);
+        }
     }
 
     /**
