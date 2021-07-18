@@ -10,7 +10,7 @@ class Party extends Model
     use HasFactory;
 
     //ENCAPSULAMOS LOS ATRIBUTOS
-    protected $fillable = ['name', 'idUser', 'idGame'];
+    protected $fillable = ['name', 'user_id', 'game_id'];
 
     //UNA PARTY PUEDE TENER MUCHOS POSTS
     public function post (){
