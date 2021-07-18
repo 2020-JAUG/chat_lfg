@@ -145,7 +145,7 @@ class PostController extends Controller
         if ( $post->user_id != $user->user_id) {
             return response()->json([
                 'success' => false,
-                'message' => 'You are not the creator of this post'
+                'message' => 'You are not the creator of this post' . $user->id .' ' . $post->user_id
             ], 400);
         }
 
