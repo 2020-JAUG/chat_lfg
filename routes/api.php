@@ -39,6 +39,7 @@ Route::middleware('auth:api')->group(function () {
 
     //CRUD DEL POSTS
     Route::resource('posts', PostController::class);
+    Route::post('posts/party', [PostController::class, 'postOnParties']);
 
 
     //CRUD DEL PARTIES

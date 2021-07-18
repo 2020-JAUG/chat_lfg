@@ -92,6 +92,31 @@ class PostController extends Controller
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
+
+     public function postOnParties()
+     {
+        $post = Post::all()->where('party_id', $party_id);
+
+        $user = auth()->user();
+
+        $this->validate($request, [
+            'party_id' => 'required',
+        ]);
+
+     if($user->id == $post->user_id) {//CONFIRMAMOS QUE SEA EL CREADOR DEL POST
+
+        return response()->json([
+            'success' => true,
+            'data' => $post,
+        ], 200);
+
+     } else {
+        return response()->json([
+            'success' => false,
+            'message' => 'You are not at this party'
+        ], 500);
+     }
+    }
     public function edit(Post $post)
     {
         //
