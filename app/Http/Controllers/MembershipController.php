@@ -121,9 +121,9 @@ class MembershipController extends Controller
     {
         $user = auth()->user();
 
-        $resultado = Membership::where('party_id', '=', $party_id)->where('user_id', '=', $user->id)->get();
+        $data = Membership::where('party_id', '=', $party_id)->where('user_id', '=', $user->id)->get();
 
-        if($resultado->isEmpty()){
+        if($data->isEmpty()){
 
             return response()->json([
                 'success' => false,
@@ -131,8 +131,8 @@ class MembershipController extends Controller
             ], 400);
         }else {
             try{
-                $resultado = Membership::selectRaw('id')
-                ->where('party_id', '=', $party_id)
+                $data = Membership::selectRaw('id')
+                ->where('party_id', '=', $party_id)->delete()
                 ->where('user_id', '=', $user->id)->delete();
 
                 return response()->json([
