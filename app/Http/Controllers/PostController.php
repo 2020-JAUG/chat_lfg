@@ -70,12 +70,6 @@ class PostController extends Controller
                 'data' => $message->toArray()
             ]);
         }
-
-                // $post = new Post();
-                // $post->title = $request->title;
-                // $post->description = $request->description;
-                // $post->party_id = $request->party_id;
-
     }
     /**
      * Display the specified resource.
@@ -145,11 +139,12 @@ class PostController extends Controller
     public function update(Request $request, $id)
     {
         $post = auth()->user()->posts()->find($id);
+        $user = auth()->user();
 
-        if (!$post) {
+        if (!$post || $user->id == $post->user_id) {
             return response()->json([
                 'success' => false,
-                'message' => 'Post not found'
+                'message' => 'You are not the creator of this post'
             ], 400);
         }
 

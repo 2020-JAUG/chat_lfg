@@ -10,7 +10,7 @@ class Post extends Model
     use HasFactory;
 
     //ENCAPSULAMOS LOS ATRIBUTOS
-    protected $fillable = ['title', 'description'];
+    protected $fillable = ['title', 'description', 'party_id'];
 
     //UN POST PERTENECE A UN SOLO USUARIO
     public function user()
