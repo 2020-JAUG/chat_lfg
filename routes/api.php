@@ -56,4 +56,5 @@ Route::middleware('auth:api')->group(function () {
 
     //Membership path
     Route::resource('membership', MembershipController::class);
+    Route::post('membership/entry', [MembershipController::class, 'entryPArty']);
 });

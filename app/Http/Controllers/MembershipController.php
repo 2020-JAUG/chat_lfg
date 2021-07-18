@@ -41,8 +41,9 @@ class MembershipController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
+
+     public function entryPArty(Request $request)
+     {
         $this->validate($request, [
             // 'user_id' => 'required',
             'party_id' => 'required',
@@ -66,6 +67,10 @@ class MembershipController extends Controller
                 'data' => $membership,
             ], 200);
         }
+     }
+    public function store(Request $request)
+    {
+        
     }
 
     /**
