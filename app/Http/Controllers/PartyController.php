@@ -42,12 +42,12 @@ class PartyController extends Controller
     {
 
         $this->validate($request, [
-            'title',
+            'name',
             'game_id'
         ]);
 
         $party = Party::create([
-            'title' => $request->title,
+            'name' => $request->name,
             'game_id' => $request->game_id,
             'user_id' => auth()->user()->id
         ]);
@@ -55,7 +55,7 @@ class PartyController extends Controller
         if ($party){
             return response()->json([
                 'success' => true,
-                'data' => $party
+                'data' => $party->toArray()
             ], 200);
 
         }else{
