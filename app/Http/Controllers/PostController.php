@@ -51,7 +51,7 @@ class PostController extends Controller
         //PARA COMPROBAR QUE ESTE EN LA PARTY
         $verify = Membership::where('party_id', '=', $request->party_id)->where('user_id', '=', $user->id)->get();
 
-        if($verify->isEmty()) {
+        if($verify->isEmpty()) {
 
             return response()->json([
                 'success' => false,
