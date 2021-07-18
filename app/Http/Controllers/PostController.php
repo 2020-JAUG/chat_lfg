@@ -70,7 +70,7 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        //CONFIRMAMOS LA AUTHENTICATION. PARA MOSTRAR LOS POSTS DEL USER LOGEADO
+        //CONFIRMAMOS LA AUTHENTICATION. PARA MOSTRAR LOS POSTS DEL USER LOGEADO. Y LISTAMOS SUS POSTS
         $post = auth()->user()->posts()->find($id);
 
         if(!$post) {
@@ -115,14 +115,14 @@ class PostController extends Controller
             ], 400);
         }
 
-        // $updated = $post->fill($request->all())->save();
         $updated = $post->update([
             'title' => $request->input('title'),
             'description' => $request->input('description')
         ]);
         if ($updated)
             return response()->json([
-                'success' => true
+                'success' => true,
+                'message' => $update->toArray()
             ]);
         else
             return response()->json([
@@ -147,15 +147,18 @@ class PostController extends Controller
                 'message' => 'Post not found',
             ], 400);
         }
-        //AQUI EJECUTAMOS LA ACCIÓN
-        if($post -> delete()){
-            return response() ->json([
-                'success' => true,
-            ], 200);
+        if($user->id == $post->user_id) {//CONFIRMAMOS QUE SEA EL CREADOR DEL POST
+
+            //AQUI EJECUTAMOS LA ACCIÓN
+            if($post -> delete()){
+                return response() ->json([
+                    'success' => true,
+                ], 200);
+            }
         } else {
             return response() ->json([
                 'success' => false,
-                'message' => 'Post can not be deleted',
+                'message' => 'You are not the creator of this post',
             ], 500);
         }
     }
