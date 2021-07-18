@@ -53,10 +53,10 @@ class MembershipController extends Controller
             'party_id' => $request->party_id,
         ]);
 
-        if (!$membership) {
+        if (!$membership && Membership->user_id) {
             return response()->json([
                 'success' => false,
-                'data' => 'You can no join the party'
+                'data' => 'you are already at this party :)'
             ], 400);
         } else {
             return response()->json([
