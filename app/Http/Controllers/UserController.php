@@ -31,10 +31,9 @@ class UserController extends Controller
         //GUARDO EL TOKEN DEL USER LOGEADO. MEDIANTE EL AUTH
         $user = auth()->user();
         $users = User::all();
-        return response()->json(['success' => true, 'data' => $user], 200);
 
         //CON LA FLECHA ACCEDEMOS A LAS PROPIEDADES DE USER
-        if($user -> is_admin === true ) {//AQUI VALIDAMOS QUE SEA ADMIN
+        if($user -> is_admin == true ) {//AQUI VALIDAMOS QUE SEA ADMIN
             return response()->json(['success' => true, 'data' => $users], 200);
         }
         return response()->json(['error' => 'You do not have access'], status:406);
