@@ -75,7 +75,7 @@ class MembershipController extends Controller
      }
     public function store(Request $request)
     {
-        
+
     }
 
     /**

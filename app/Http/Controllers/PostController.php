@@ -39,6 +39,10 @@ class PostController extends Controller
     public function store(Request $request)
     {
 
+        $user = auth()->user();
+
+        $verify = Membership::where('party_id', '=', $request->party_id)->where('user_id', '=', $user->id)->get();
+
         $this->validate($request, [
             'title' => 'required',
             'description' => 'required',
@@ -50,7 +54,7 @@ class PostController extends Controller
         $post->description = $request->description;
         $post->party_id = $request->party_id;
 
-        if(auth()->user()->posts()->save($post))
+        if($verify->isEmty())
             return response()->json([
                 'success' => true,
                 'data' => $post->toArray()
@@ -58,7 +62,7 @@ class PostController extends Controller
             else
                 return response()->json([
                     'success' => false,
-                    'message' => 'Post not added'
+                    'message' => 'You are not at this party'
                 ], 500);
 
     }
