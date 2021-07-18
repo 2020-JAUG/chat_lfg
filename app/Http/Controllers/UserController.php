@@ -16,11 +16,15 @@ class UserController extends Controller
     public function index()
     {
 
+    }
+
+    public function all()
+    {
+
         //GUARDO EL TOKEN DEL USER LOGEADO. MEDIANTE EL AUTH
         $user = auth()->user();
         $users = User::all();
 
-        //CON LA FLECHA ACCEDEMOS A LAS PROPIEDADES DE USER
         //CON LA FLECHA ACCEDEMOS A LAS PROPIEDADES DE USER
         if($user -> is_admin === true ) {//AQUI VALIDAMOS QUE SEA ADMIN
             return response()->json(['success' => true, 'data' => $users], 200);
