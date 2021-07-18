@@ -43,7 +43,27 @@ class MembershipController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'user_id' => 'required',
+            'party_id' => 'required',
+        ]);
+
+        $membership = Membership::create([
+            'user_id' => $request->user_id,
+            'party_id' => $request->party_id,
+        ]);
+
+        if (!$membership) {
+            return response()->json([
+                'success' => false,
+                'data' => 'You can no join the party'
+            ], 400);
+        } else {
+            return response()->json([
+                'success' => true,
+                'data' => $membership,
+            ], 200);
+        }
     }
 
     /**
