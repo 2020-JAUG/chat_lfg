@@ -49,7 +49,7 @@ class MembershipController extends Controller
         $user = auth()->user();
 
         $this->validate($request, [
-            'user_id' => 'required',
+            // 'user_id' => 'required',
             'party_id' => 'required',
         ]);
 
@@ -58,7 +58,7 @@ class MembershipController extends Controller
         if ($membership->isEmpty()) {
 
             $data = Membership::create([
-                'user_id' => $request->user_id,
+                'user_id' => $user->id,
                 'party_id' => $request->party_id,
             ]);
 
