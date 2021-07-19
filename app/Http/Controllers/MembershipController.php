@@ -55,23 +55,26 @@ class MembershipController extends Controller
 
         $membership = Membership::where('party_id', '=', $request->party_id)->where('user_id', '=', $user->id)->get();
 
-        $membership = Membership::create([
-            'user_id' => $request->user_id,
-            'party_id' => $request->party_id,
-        ]);
+        if ($membership->isEmpty()) {
 
-        if ($membership != isEmpty()) {
+            $data = Membership::create([
+                'user_id' => $request->user_id,
+                'party_id' => $request->party_id,
+            ]);
+
+            if($data) {
+                return response()->json([
+                    'success' => true,
+                    'data' => $data
+                ], 200);
+            }
+
+        } else {
 
             return response()->json([
                 'success' => false,
                 'data' => 'you are already at this party :)'
             ], 400);
-        } else {
-
-            return response()->json([
-                'success' => true,
-                'data' => $membership,
-            ], 200);
         }
      }
     public function store(Request $request)
