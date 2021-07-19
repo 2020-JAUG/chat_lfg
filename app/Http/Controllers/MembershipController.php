@@ -122,7 +122,7 @@ class MembershipController extends Controller
      * @param  \App\Models\Membership  $membership
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $party_id)
+    public function destroy($party_id)
     {
         $user = auth()->user();
 
