@@ -176,15 +176,17 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        $post = auth()->user()->posts()->find($id);
 
-        $post = Post::findOrFail($id);
+        $user = auth()->user();
+        $post = Post::all()->find($id);
 
-        if (!$post) {
+
+        if ($post->user_id != $user->id) {
+
             return response()->json([
                 'success' => false,
-                'message' => 'Post not found',
-            ], 400);
+                'message' => 'You are not the creator of this post',
+            ], 500);
         }
 
         //AQUI EJECUTAMOS LA ACCIÓN
@@ -192,11 +194,6 @@ class PostController extends Controller
             return response()->json([
                 'success' => true,
             ], 200);
-        } else {
-            return response()->json([
-                'success' => false,
-                'message' => 'You are not the creator of this post',
-            ], 500);
         }
     }
 }
