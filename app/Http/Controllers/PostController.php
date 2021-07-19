@@ -193,6 +193,7 @@ class PostController extends Controller
         if ($post->delete()) {
             return response()->json([
                 'success' => true,
+                'message' => 'Post with title ' . $post->title . ' has been remove'
             ], 200);
         }
     }
